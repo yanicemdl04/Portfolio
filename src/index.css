@@ -1,3 +1,82 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-charcoal/10;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-charcoal font-sans antialiased;
+    font-feature-settings: 'ss01' on, 'cv11' on;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-charcoal;
+  }
+
+  ::selection {
+    background-color: #71806A;
+    color: #F7F2E8;
+  }
+
+  :focus-visible {
+    outline: 2px solid #71806A;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Custom scrollbar — sobre, en accord avec la palette */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F7F2E8;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #D9C7A7;
+    border-radius: 999px;
+    border: 2px solid #F7F2E8;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #8A6F52;
+  }
+  html {
+    scrollbar-color: #D9C7A7 #F7F2E8;
+    scrollbar-width: thin;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-10;
+  }
+
+  .link-underline {
+    @apply relative inline-flex items-center;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute left-0 -bottom-0.5 h-px w-0 bg-current transition-all duration-300 ease-soft;
+  }
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

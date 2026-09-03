@@ -1,94 +1,80 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Code, Server, Database, GitBranch, ArrowRight } from 'lucide-react';
+import SectionHeading from '../ui/SectionHeading';
+import Button from '../ui/Button';
+import Reveal from '../ui/Reveal';
+import Tag from '../ui/Tag';
+
+const skillCategories = [
+  {
+    title: 'Frontend',
+    icon: Code,
+    skills: ['HTML', 'CSS', 'JavaScript', 'React'],
+    description: "Interfaces utilisateur modernes, réactives et soignées jusqu'au détail.",
+  },
+  {
+    title: 'Backend',
+    icon: Server,
+    skills: ['Node.js', 'Laravel', 'Symfony', 'Python'],
+    description: 'Serveurs et API robustes, pensés pour la fiabilité et la clarté du code.',
+  },
+  {
+    title: 'Base de données',
+    icon: Database,
+    skills: ['MySQL', 'SQLite', 'PostgreSQL'],
+    description: 'Conception de schémas et optimisation des requêtes.',
+  },
+  {
+    title: 'Outils',
+    icon: GitBranch,
+    skills: ['Git', 'GitHub'],
+    description: 'Contrôle de version, revue de code et collaboration.',
+  },
+];
 
 const SkillsPreview: React.FC = () => {
   const navigate = useNavigate();
-  
-  const skillCategories = [
-    {
-      title: "Frontend",
-      icon: <Code size={36} className="text-primary" />,
-      skills: ["HTML", "CSS", "JavaScript", "React", "Python"],
-      description: "Création d'interfaces utilisateur modernes et réactives"
-    },
-    {
-      title: "Backend",
-      icon: <Server size={36} className="text-primary" />,
-      skills: ["Node.js", "Laravel", "Symfony"],
-      description: "Développement de serveurs et d'APIs robustes"
-    },
-    {
-      title: "Base de données",
-      icon: <Database size={36} className="text-primary" />,
-      skills: ["MySQL", "SQLite", "PostgreSQL"],
-      description: "Conception et optimisation de bases de données"
-    },
-    {
-      title: "Outils",
-      icon: <GitBranch size={36} className="text-primary" />,
-      skills: ["Git", "GitHub"],
-      description: "Contrôle de version et collaboration"
-    }
-  ];
-  
+
   return (
-    <section className="py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-6 text-gray-900 dark:text-text-light">
-            Mes compétences
-          </h2>
-          
-          <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
-          
-          <p className="text-base md:text-lg text-gray-600 dark:text-text-medium">
-            Je maîtrise diverses technologies et outils qui me permettent de développer
-            des applications web complètes, du frontend au backend.
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skillCategories.map((category, index) => (
-            <div 
-              key={index} 
-              className="bg-white dark:bg-background-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="mb-4">
-                {category.icon}
+    <section className="bg-beige-100 py-20 md:py-28">
+      <div className="container-custom">
+        <SectionHeading
+          index="03"
+          eyebrow="Compétences"
+          align="center"
+          title="Un socle technique complet, du frontend au serveur."
+          subtitle="Les technologies et outils que j'utilise au quotidien pour concevoir des applications web de bout en bout."
+          className="mx-auto"
+        />
+
+        <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {skillCategories.map(({ title, icon: Icon, skills, description }, i) => (
+            <Reveal key={title} delay={i * 0.07}>
+              <div className="group h-full rounded-xl border border-charcoal/8 bg-linen p-6 transition-all duration-300 ease-soft hover:-translate-y-1.5 hover:shadow-soft-lg">
+                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-sage-100 text-sage-600 transition-colors duration-300 group-hover:bg-sage-500 group-hover:text-cream">
+                  <Icon size={20} />
+                </span>
+
+                <h3 className="mt-5 font-display text-lg font-medium text-charcoal">{title}</h3>
+
+                <p className="mt-2 text-sm leading-relaxed text-charcoal/55">{description}</p>
+
+                <div className="mt-5 flex flex-wrap gap-1.5">
+                  {skills.map((skill) => (
+                    <Tag key={skill}>{skill}</Tag>
+                  ))}
+                </div>
               </div>
-              
-              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-text-light">
-                {category.title}
-              </h3>
-              
-              <p className="text-gray-600 dark:text-text-medium mb-4 text-sm">
-                {category.description}
-              </p>
-              
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <span 
-                    key={skillIndex} 
-                    className="px-3 py-1 bg-gray-100 dark:bg-background-100 text-gray-700 dark:text-text-light text-sm rounded-full"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
+            </Reveal>
           ))}
         </div>
-        
-        <div className="text-center mt-12">
-          <button 
-            onClick={() => navigate('/skills')}
-            className="inline-flex items-center text-primary font-medium hover:underline"
-          >
+
+        <Reveal delay={0.1} className="mt-14 flex justify-center">
+          <Button variant="outline" onClick={() => navigate('/skills')} icon={<ArrowRight size={16} />}>
             Voir toutes mes compétences
-            <ArrowRight size={16} className="ml-2" />
-          </button>
-        </div>
+          </Button>
+        </Reveal>
       </div>
     </section>
   );
